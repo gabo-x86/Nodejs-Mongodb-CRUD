@@ -1,12 +1,27 @@
 const express = require('express');
 const path = require('path');
+const exphbs = require('express-handlebars');//Motor de plantillas
 //Initializations
 
 const app = express();
 
 //Settings (Config de modulos)
 app.set('port', process.env.PORT || 4000);
-app.set('views', path.join(__dirname,'views'));//Esto para cambiar la ruta de las vistas que node renderizará
+app.set('views', path.join(__dirname,'views')); //Esto para cambiar la ruta de las vistas que node renderizará
+app.engine('.hbs', exphbs.engine({ //Config de motor de plantillas(vistas)
+    defaultLayout: 'main', //Definimos plantilla principal
+    layoutDir: path.join(app.get('views'), 'layouts'),
+    partialDir: path.join(app.get('views'), 'partials'),
+    extname: '.hbs', //Def extensión de archivos
+}))
+app.set('view engine', '.hbs');// Decir a node qué motor de plantillas usar
+/**
+ * NOTA:
+ * express-handlebars separa las plantillas en dos:
+ *      layouts.-  Plantillas con código común en todas las plantillas
+ *      partials.- Pedazos html reutilizables 
+ */
+
 
 //Middlewares (Funciones que se ejecutan antes de que se procese la petición)
 app.use(express.urlencoded({extended: false}));//Permite convertir json a obj js
@@ -17,7 +32,7 @@ app.use(express.urlencoded({extended: false}));//Permite convertir json a obj js
 
 //Routes
 app.get('/', (req, res)=>{
-    res.send(`Hello world!`);
+    res.render('index');//Renderiza archivo index.hbs
 })
 
 //Static files
