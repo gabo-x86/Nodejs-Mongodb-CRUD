@@ -1,9 +1,12 @@
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');//Motor de plantillas
-//Initializations
 
+
+//Initializations
 const app = express();
+
+
 
 //Settings (Config de modulos)
 app.set('port', process.env.PORT || 4000);
@@ -23,6 +26,7 @@ app.set('view engine', '.hbs');// Decir a node qué motor de plantillas usar
  */
 
 
+
 //Middlewares (Funciones que se ejecutan antes de que se procese la petición)
 app.use(express.urlencoded({extended: false}));//Permite convertir json a obj js
 
@@ -30,10 +34,11 @@ app.use(express.urlencoded({extended: false}));//Permite convertir json a obj js
 //Global variables
 
 
+
 //Routes
-app.get('/', (req, res)=>{
-    res.render('index');//Renderiza archivo index.hbs
-})
+app.use(require('./routes/index.routes'));
+app.use(require('./routes/notes.routes'))
+
 
 //Static files
 //Son archivos públicos que son accesibles desde cualquier lado
