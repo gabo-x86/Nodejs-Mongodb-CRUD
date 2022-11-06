@@ -9,7 +9,7 @@ const { renderNoteForm,
 
 router.get('/notes', renderNotes);
 router.get('/notes/add', renderNoteForm);
-router.post('/notes/add', createNewNote);
+router.post('/notes/new-note', createNewNote);
 
 router.get('/notes/edit/:id', renderEditForm);
 router.put('/notes/edit/:id', updateNote);

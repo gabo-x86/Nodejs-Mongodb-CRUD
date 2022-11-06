@@ -2,15 +2,16 @@ const notesCtrl = {}
 
 //Devuelve todas las notas
 notesCtrl.renderNotes = (req, res) => {
-    res.send('Print all NOTES ;)')
+    res.send('Render all notes :D');
 }
 
 //Pinta formulario
 notesCtrl.renderNoteForm = (req, res) => {
-    res.send('Note aDD (GET)');
+    res.render('./notes/new-note');
 }
 //Crea nueva nota
 notesCtrl.createNewNote = (req, res) => {
+    //req.body catchea los campos del formulario
     res.send('Note was created (POST)');
 }
 
