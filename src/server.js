@@ -1,6 +1,7 @@
 const express = require('express');
 const path = require('path');
 const exphbs = require('express-handlebars');//Motor de plantillas
+const logger = require('morgan');
 
 
 //Initializations
@@ -29,7 +30,7 @@ app.set('view engine', '.hbs');// Decir a node qué motor de plantillas usar
 
 //Middlewares (Funciones que se ejecutan antes de que se procese la petición)
 app.use(express.urlencoded({extended: false}));//Permite convertir json a obj js
-
+app.use(logger('dev'));
 
 //Global variables
 

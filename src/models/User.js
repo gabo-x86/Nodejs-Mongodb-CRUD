@@ -18,4 +18,4 @@ UserSchema.methods.matchPassword = async function(password){//Función que compa
     return bcrypt.compare(password, this.password);
 }
 
-module.exports = model('User', UserSchema);
+module.exports = model('User', UserSchema); //Cuando se guarde en la BD se guardará en la colección Users(plural)

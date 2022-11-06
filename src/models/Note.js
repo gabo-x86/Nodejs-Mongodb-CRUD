@@ -14,4 +14,5 @@ const NoteSchema = new Schema({
     timestamps: true //Añade fecha de creación y actualización
 })
 
-module.exports = model('Note', NoteSchema);//Exportamos modelo
+module.exports = model('Note', NoteSchema); //Exportamos modelo
+                                            //Cuando se guarde en la BD se guardará en la colección Users(plural)
