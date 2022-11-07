@@ -22,7 +22,7 @@ notesCtrl.createNewNote = async (req, res) => {
     const newNote = new Note({title, description}); //Es lo mismo que {title:title, description:description}
     await newNote.save();                                 //Guarda objeto en la BD
     console.log(newNote);
-    res.send('Note was created (POST)');
+    res.redirect('/notes');
 }
 
 
@@ -39,8 +39,10 @@ notesCtrl.updateNote = (req, res) => {
 
 
 //Elimina nota
-notesCtrl.deleteNote = (req, res) =>{
-    res.send('Deleting note :(');
+notesCtrl.deleteNote = async (req, res) =>{
+    //req.params devuelve los params de la url enviada
+    await Note.findByIdAndDelete(req.params.id);
+    res.redirect('/notes');
 }
 
 

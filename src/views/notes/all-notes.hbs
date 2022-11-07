@@ -10,8 +10,10 @@
                     </a>
                 </h4>
                 <p>{{description}}</p>
-                <form action="/notes/edit/{{_id}}" method="POST" class="d-grid">
-                    <!--El method va a cambiar-->
+                <form action="/notes/delete/{{_id}}?_method=DELETE" method="POST" class="d-grid">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <!--El metodo cambió a DELETE gracias a method-override (package.json)-->
+                    
                     <button type="submit" class="btn btn-danger btn-block btn-sm">
                         Delete
                     </button>
