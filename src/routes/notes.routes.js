@@ -9,9 +9,9 @@ const { renderNoteForm,
 
 router.get('/notes', renderNotes);
 router.get('/notes/add', renderNoteForm);
-router.post('/notes/new-note', createNewNote);
+router.post('/notes/new-note', createNewNote);  //Necesita mostrar mensaje
 
 router.get('/notes/edit/:id', renderEditForm);
-router.put('/notes/edit/:id', updateNote);
-router.delete('/notes/delete/:id', deleteNote);
+router.put('/notes/edit/:id', updateNote);      //Necesita mostrar mensaje
+router.delete('/notes/delete/:id', deleteNote); //Necesita mostrar mensaje
 module.exports = router;

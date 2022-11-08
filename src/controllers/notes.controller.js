@@ -18,9 +18,10 @@ notesCtrl.renderNoteForm = (req, res) => {
 //Crea nueva nota
 notesCtrl.createNewNote = async (req, res) => {
     //req.body catchea los campos del formulario
-    const {title, description} = req.body;          //Usamos destructuring para catchear los campos
-    const newNote = new Note({title, description}); //Es lo mismo que {title:title, description:description}
-    await newNote.save();                           //Guarda objeto en la BD
+    const {title, description} = req.body;                  //Usamos destructuring para catchear los campos
+    const newNote = new Note({title, description});         //Es lo mismo que {title:title, description:description}
+    await newNote.save();                                   //Guarda objeto en la BD
+    req.flash('success_msg', 'Note added successfully!');   //Guarda mensaje en var success_msg
     res.redirect('/notes');
 }
 
@@ -36,13 +37,15 @@ notesCtrl.renderEditForm = async (req, res) => {
 notesCtrl.updateNote = async (req, res) => {
     const { title, description } = req.body;
     await Note.findByIdAndUpdate(req.params.id, {title:title, description:description});
+    req.flash('success_msg', 'Note updated successfully!'); //Guarda mensaje en var success_msg
     res.redirect('/notes');
 }
 
 
 //Elimina nota
 notesCtrl.deleteNote = async (req, res) =>{
-    await Note.findByIdAndDelete(req.params.id); //req.params devuelve los params de la url enviada
+    await Note.findByIdAndDelete(req.params.id);            //req.params devuelve los params de la url enviada
+    req.flash('success_msg', 'Note deleted successfully!'); //Guarda mensaje en var success_msg
     res.redirect('/notes');
 }
 
