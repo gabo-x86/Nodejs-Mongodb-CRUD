@@ -46,6 +46,7 @@ app.use(flash());
 //Variable global q permite compartir los mensajes generados con flash → req.flash('success_msg')
 app.use((req, res, next) => {                          //Config de middleware propio
     res.locals.success_msg = req.flash('success_msg'); //Config variable global
+    res.locals.err_msg = req.flash('err_msg');
     next();                                            //Importante para que continúe con la ejecución de abajo
 })
 
