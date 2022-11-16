@@ -1,11 +1,13 @@
 const usersCtrl = {}
 const User = require("../models/User");
 
+const passport = require('passport');
+
 usersCtrl.renderSignUpForm = (req, res) => {
     res.render('users/signup')
 }
 
-usersCtrl.signUp = async (req, res) => {
+usersCtrl.signUp = async (req, res) => {    //Podría usarse dependencia passport
     const errors = [];
     const {name, email, password, confirm_password} = req.body;
 
@@ -16,7 +18,7 @@ usersCtrl.signUp = async (req, res) => {
         errors.push({text: "Passwords must be at least 4 characters"});
 
     if(errors.length > 0){
-        res.render('users/signup', {                    //En caso de error, redireccionamos a la misma página con PARAMS
+        res.render('users/signup', {                    //En caso de error, renderizamos la misma página con PARÁMETROS
             errors,
             name,
             email,
@@ -42,12 +44,21 @@ usersCtrl.renderSignInForm = (req, res) => {
     res.render('users/signin');
 }
 
-usersCtrl.signIn = (req, res) => {
-    res.send('SignIn');
-}
+usersCtrl.signIn = passport.authenticate('local', {
+    failureRedirect: '/users/signin',
+    successRedirect: '/notes',
+    failureFlash: true,                  //Si existe error, pasar a Flash
+});
+
 
 usersCtrl.logOut = (req, res) => {
-    res.send('Logout');
+    //Podría ser req.session.user={}
+    req.logout((err)=>{                 //Función de passport que cierra sesión del servidor
+        if(err) return next(err);
+        req.flash('success_msg', 'You are logged out now');
+        res.redirect('/users/signin')
+    });                      
+    
 }
 
 module.exports = usersCtrl;

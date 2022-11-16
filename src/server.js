@@ -5,10 +5,12 @@ const logger = require('morgan');
 const methodOverride = require('method-override');
 const flash = require('connect-flash');
 const session = require('express-session');
+const passport = require('passport');
 
 
 //Initializations
 const app = express();
+require('./config/passport');                   //Importamos código de passport
 
 
 
@@ -40,6 +42,8 @@ app.use(session({
     resave: true,
     saveUninitialized: true,
 }));
+app.use(passport.initialize());     //Debe estar después de session
+app.use(passport.session());
 app.use(flash());
 
 //Global variables
@@ -47,6 +51,8 @@ app.use(flash());
 app.use((req, res, next) => {                          //Config de middleware propio
     res.locals.success_msg = req.flash('success_msg'); //Config variable global
     res.locals.err_msg = req.flash('err_msg');
+    res.locals.error = req.flash('error');             //Es el error que crea passport
+    res.locals.user = req.user || null;               //Guarda sesión del usuario
     next();                                            //Importante para que continúe con la ejecución de abajo
 })
 
